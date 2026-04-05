@@ -1,0 +1,601 @@
+.main {
+  min-height: 100vh;
+  padding: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.header {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.logoBadge {
+  background: var(--accent-gradient);
+  padding: 8px;
+  border-radius: 10px;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.subtitle {
+  color: var(--text-secondary);
+  font-size: 1rem;
+}
+
+.statusGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
+}
+
+.timeBadge {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+/* Health Bar Styles */
+.healthBar {
+  margin-bottom: 2rem;
+  padding: 1.25rem 2rem;
+}
+
+.healthTitle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--accent-color);
+  margin-bottom: 1rem;
+}
+
+.tableStats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.statItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.statLabel {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.statValue {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Dashboard Grid */
+.dashboardGrid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 24px;
+}
+
+.span12 { grid-column: span 12; }
+.span8 { grid-column: span 8; }
+.span6 { grid-column: span 6; }
+.span4 { grid-column: span 4; }
+
+@media (max-width: 1024px) {
+  .span8, .span6, .span4 { grid-column: span 12; }
+}
+
+/* SQL Reference Component */
+.sqlRefContainer {
+  margin-bottom: 1.5rem;
+}
+
+.sqlToggleButton {
+  background: rgba(148, 163, 184, 0.05);
+  border: 1px solid var(--border-glass);
+  color: var(--text-secondary);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sqlToggleButton:hover {
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--accent-color);
+}
+
+.sqlCodeBlock {
+  margin-top: 8px;
+  background: #020617;
+  padding: 12px;
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  white-space: pre-wrap;
+}
+
+/* Ranking List */
+.rankingList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.rankingItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+}
+
+.rankBadge {
+  background: var(--accent-color);
+  color: #020617;
+  font-weight: 800;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+.rankInfo {
+  flex: 1;
+}
+
+.supplierName {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.supplierMeta {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+.chartContainer {
+  height: 320px;
+  width: 100%;
+}
+
+.widgetTitle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+}
+
+.widgetIcon {
+  color: var(--accent-color);
+}
+
+.loaderContainer {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  color: var(--text-secondary);
+}
+
+.spin {
+  animation: spin 2s linear infinite;
+  color: var(--accent-color);
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.footer {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-glass);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+}
+
+/* Authentication Page Styles */
+.authContainer {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at top left, rgba(16, 185, 129, 0.05), transparent),
+              radial-gradient(circle at bottom right, rgba(14, 165, 233, 0.05), transparent);
+  padding: 1rem;
+}
+
+.authCard {
+  width: 100%;
+  max-width: 400px;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--border-glass);
+  border-radius: 20px;
+  padding: 2.5rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.authHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.authLogo {
+  margin-bottom: 1rem;
+  display: inline-block;
+}
+
+.authTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.authSubtitle {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+.authForm {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.inputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.inputLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.authInput {
+  background: rgba(2, 6, 23, 0.8);
+  border: 1px solid var(--border-glass);
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  color: var(--text-primary);
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.authInput:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.1);
+}
+
+.authButton {
+  background: var(--accent-gradient);
+  color: #020617;
+  font-weight: 700;
+  border: none;
+  padding: 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.authButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.authFooter {
+  margin-top: 1.5rem;
+  text-align: center;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.authLink {
+  color: var(--accent-color);
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+.authLink:hover {
+  text-decoration: underline;
+}
+
+.errorMsg {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+/* User Profile Badges in Header */
+.userBadge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px;
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  border-radius: 20px;
+  color: var(--accent-color);
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.roleLabel {
+  background: var(--accent-color);
+  color: #020617;
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  font-weight: 800;
+  margin-left: 4px;
+}
+
+.logoutButton {
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+  padding: 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+
+.logoutButton:hover {
+  background: #ef4444;
+  color: #fff;
+  transform: scale(1.1);
+}
+
+/* SQL Console Terminal Styles */
+.terminalSplit {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 20px;
+  height: 350px;
+  margin-top: 15px;
+}
+
+.terminalInputArea {
+  display: flex;
+  flex-direction: column;
+  background: #020617;
+  border-radius: 8px;
+  border: 1px solid var(--border-glass);
+  overflow: hidden;
+}
+
+.terminalHeader {
+  background: #1e293b;
+  padding: 8px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.8rem;
+  color: #94a3b8;
+}
+
+.runButton {
+  background: #10b981;
+  color: #020617;
+  border: none;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.75rem;
+  transition: all 0.2s;
+}
+
+.runButton:hover {
+  background: #34d399;
+  transform: scale(1.05);
+}
+
+.runButton:disabled {
+  background: #475569;
+  cursor: not-allowed;
+}
+
+.sqlTextarea {
+  flex: 1;
+  background: transparent;
+  color: #10b981;
+  border: none;
+  padding: 16px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  resize: none;
+  outline: none;
+}
+
+.terminalOutputArea {
+  background: rgba(15, 23, 42, 0.5);
+  border-radius: 8px;
+  border: 1px solid var(--border-glass);
+  padding: 12px;
+  overflow: auto;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.85rem;
+}
+
+.emptyOutput {
+  color: #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.sqlError {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+  padding: 8px 16px;
+  font-size: 0.8rem;
+  border-top: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.dataTableWrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.dataTable {
+  width: 100%;
+  border-collapse: collapse;
+  color: #cbd5e1;
+}
+
+.dataTable th {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 1px solid var(--border-glass);
+  color: #10b981;
+  font-size: 0.75rem;
+}
+
+.dataTable td {
+  padding: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.execSuccess {
+  color: #10b981;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Upload Center Styles */
+.uploadBox {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.dropZone {
+  border: 2px dashed var(--border-glass);
+  border-radius: 12px;
+  padding: 30px 20px;
+  text-align: center;
+  transition: all 0.3s;
+  background: rgba(99, 102, 241, 0.05);
+}
+
+.dropZone:hover {
+  border-color: #6366f1;
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.hiddenFile {
+  display: none;
+}
+
+.fileLabel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}
+
+.uploadBtn {
+  background: #6366f1;
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.uploadBtn:disabled {
+  background: #475569;
+  cursor: not-allowed;
+}
+
+.uploadBtn:hover:not(:disabled) {
+  background: #4f46e5;
+  transform: translateY(-2px);
+}
+
+.successMsg {
+  color: #10b981;
+  font-size: 0.8rem;
+  background: rgba(16, 185, 129, 0.1);
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.errorMsg {
+  color: #ef4444;
+  font-size: 0.8rem;
+  background: rgba(239, 68, 68, 0.1);
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.span4 {
+  grid-column: span 4;
+}
+
+.span8 {
+  grid-column: span 8;
+}

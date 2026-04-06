@@ -12,7 +12,8 @@
 
 <br><br>
 
-**Student Name:** [ENTER_NAME]  
+**Student Name:** MRINAL PRAKASH  
+**GitHub:** [@MRINALPRAKASHFSD](https://github.com/MRINALPRAKASHFSD)  
 **Roll Number:** [ENTER_ROLL_NUMBER]  
 **Course/Subject Name:** Database Management System (ENCS254)  
 **Faculty Name:** [ENTER_FACULTY_NAME]  

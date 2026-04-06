@@ -76,8 +76,9 @@ The full project report, including schema diagrams, SQL CTE breakdowns, and perf
 
 ---
 
-## 👤 Author
-- **Name**: [ENTER_NAME]
-- **Roll Number**: [ENTER_ROLL_NUMBER]
+## 👤 Author & Credits
+- **Primary Developer**: **MRINAL PRAKASH**
+- **GitHub**: [@MRINALPRAKASHFSD](https://github.com/MRINALPRAKASHFSD)
 - **University**: K.R. MANGALAM UNIVERSITY
-- **Tutor**: [ENTER_FACULTY_NAME]
+- **Project**: DBMS Capstone [ENCS254]
+

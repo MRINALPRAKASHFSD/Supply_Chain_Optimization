@@ -42,6 +42,16 @@ export default function Home() {
   const [user, setUser] = useState(null);
   const router = useRouter();
 
+  const fetchAnalytics = () => {
+    fetch('/api/analytics')
+      .then(res => res.json())
+      .then(d => {
+        if (d.success) setData(d.data);
+      })
+      .catch(e => console.error(e))
+      .finally(() => setLoading(false));
+  };
+
   useEffect(() => {
     // Session Guard: Check localStorage for DBMS Mock Session
     const storedUser = localStorage.getItem('user');
@@ -50,14 +60,7 @@ export default function Home() {
       return;
     }
     setUser(JSON.parse(storedUser));
-
-    fetch('/api/analytics')
-      .then(res => res.json())
-      .then(d => {
-        if (d.success) setData(d.data);
-      })
-      .catch(e => console.error(e))
-      .finally(() => setLoading(false));
+    fetchAnalytics();
   }, [router]);
 
   const handleLogout = () => {
@@ -222,7 +225,13 @@ export default function Home() {
         <SqlConsole className={styles.span8} />
 
         {/* 6. UPLOAD CENTER - DYNAMIC DATA INGESTION */}
-        <UploadCenter className={styles.span4} />
+        <UploadCenter className={styles.span4} onUploadSuccess={() => fetchAnalytics()} />
+
+        {/* 7. EXTERNAL DATA EXPLORER - DYNAMIC DATASETS */}
+        <ExternalDataExplorer 
+          className={styles.span12} 
+          datasets={data.metadata.externalDatasets || []} 
+        />
 
       </div>
 
@@ -238,24 +247,57 @@ export default function Home() {
 }
 
 // Interactive Data Upload Component
-const UploadCenter = ({ className }) => {
+const UploadCenter = ({ className, onUploadSuccess }) => {
   const [file, setFile] = useState(null);
   const [status, setStatus] = useState('idle'); // idle, uploading, success, error
   const [msg, setMsg] = useState('');
 
   const handleFile = (e) => setFile(e.target.files[0]);
 
+  // Robust CSV Parser (Regex-based to handle quoted commas and escaped quotes)
+  const parseCSV = (text) => {
+    const result = [];
+    const lines = text.split(/\r?\n/);
+    for (let line of lines) {
+      if (!line.trim()) continue;
+      const items = [];
+      let current = '';
+      let inQuotes = false;
+      for (let i = 0; i < line.length; i++) {
+        const char = line[i];
+        const nextChar = line[i + 1];
+        if (char === '"') {
+          if (inQuotes && nextChar === '"') {
+            current += '"';
+            i++;
+          } else {
+            inQuotes = !inQuotes;
+          }
+        } else if (char === ',' && !inQuotes) {
+          items.push(current.trim());
+          current = '';
+        } else {
+          current += char;
+        }
+      }
+      items.push(current.trim());
+      result.push(items);
+    }
+    return result;
+  };
+
   const uploadData = async () => {
     if (!file) return;
     setStatus('uploading');
     try {
-      // Basic CSV parser mock (Simulating client-side processing before API)
       const text = await file.text();
-      const rows = text.split('\n').filter(r => r.trim()).map(r => r.split(','));
+      const rows = parseCSV(text);
+      if (rows.length < 2) throw new Error("CSV must contain a header and at least one data row.");
+      
       const headers = rows[0];
       const jsonData = rows.slice(1).map(row => {
         let obj = {};
-        headers.forEach((h, i) => obj[h.trim()] = row[i]?.trim());
+        headers.forEach((h, i) => obj[h.trim()] = row[i] || "");
         return obj;
       });
 
@@ -268,6 +310,7 @@ const UploadCenter = ({ className }) => {
       if (d.success) {
         setStatus('success');
         setMsg(d.message);
+        if (onUploadSuccess) onUploadSuccess();
       } else {
         throw new Error(d.error);
       }
@@ -379,3 +422,126 @@ const SqlConsole = ({ className }) => {
   );
 };
 
+// New Component: External Data Explorer for any CSV data
+const ExternalDataExplorer = ({ className, datasets }) => {
+  const [selectedTable, setSelectedTable] = useState('');
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState('');
+
+  const fetchTableData = async (tableName) => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/sql', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query: `SELECT * FROM "${tableName}" LIMIT 100` })
+      });
+      const d = await res.json();
+      if (d.success) setData(d);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (selectedTable) fetchTableData(selectedTable);
+    else setData(null);
+  }, [selectedTable]);
+
+  const filteredData = data?.data?.filter(row => 
+    Object.values(row).some(val => String(val).toLowerCase().includes(search.toLowerCase()))
+  ) || [];
+
+  // Logic to find first numeric column for a "Quick Insight" chart
+  const numericColumn = data?.columns?.find(col => {
+    if (!data.data.length) return false;
+    const val = data.data[0][col];
+    return !isNaN(parseFloat(val)) && isFinite(val);
+  });
+
+  return (
+    <section className={`glass-panel ${className} animate-in`}>
+      <div className={styles.explorerHeader}>
+        <div className={styles.explorerTitleGroup}>
+          <Boxes className={styles.widgetIcon} />
+          <h2 className={styles.widgetTitle} style={{ marginBottom: 0 }}>External Data Explorer</h2>
+        </div>
+        <div className={styles.explorerActions}>
+          <select 
+            className={styles.datasetSelect}
+            value={selectedTable}
+            onChange={(e) => setSelectedTable(e.target.value)}
+          >
+            <option value="">Select a Dataset...</option>
+            {datasets.map(ds => (
+              <option key={ds.name} value={ds.name}>{ds.displayName} ({ds.count} rows)</option>
+            ))}
+          </select>
+          {selectedTable && (
+            <input 
+              type="text" 
+              placeholder="Search records..." 
+              className={styles.explorerSearch}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          )}
+        </div>
+      </div>
+
+      {!selectedTable ? (
+        <div className={styles.emptyExplorer}>
+          <div className={styles.emptyStateIcon}><Server size={40} /></div>
+          <p>No dataset selected. Use the "Data Ingestion Hub" above to upload a CSV.</p>
+        </div>
+      ) : loading ? (
+        <div className={styles.explorerLoading}><Activity className={styles.spin} /> Initializing Dataset Link...</div>
+      ) : (
+        <div className={styles.explorerSplit}>
+          <div className={styles.explorerTableArea}>
+            <div className={styles.dataTableWrapper} style={{ maxHeight: '400px' }}>
+              <table className={styles.dataTable}>
+                <thead>
+                  <tr>
+                    {data?.columns.map(col => <th key={col}>{col}</th>)}
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredData.map((row, i) => (
+                    <tr key={i}>
+                      {Object.values(row).map((val, j) => <td key={j}>{String(val)}</td>)}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className={styles.explorerFooter}>
+              Showing {filteredData.length} records from {selectedTable}
+            </div>
+          </div>
+
+          {numericColumn && (
+            <div className={styles.explorerChartArea}>
+              <h3 className={styles.insightTitle}>Quick Insight: {numericColumn} Distribution</h3>
+              <div style={{ height: '200px' }}>
+                <ResponsiveContainer width="100%" height="100%">
+                  <BarChart data={filteredData.slice(0, 10)}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
+                    <XAxis dataKey={data.columns[0]} hide />
+                    <YAxis stroke="#94a3b8" fontSize={10} />
+                    <RechartsTooltip contentStyle={{ backgroundColor: '#0f172a', border: '1px solid var(--border-glass)' }} />
+                    <Bar dataKey={numericColumn} fill="#6366f1" radius={[4, 4, 0, 0]} />
+                  </BarChart>
+                </ResponsiveContainer>
+              </div>
+              <p className={styles.insightDesc}>Auto-generated preview of the first 10 records based on numeric column identification.</p>
+            </div>
+          )}
+        </div>
+      )}
+    </section>
+  );
+};

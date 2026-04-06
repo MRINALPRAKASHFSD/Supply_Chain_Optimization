@@ -5,29 +5,43 @@ export async function GET() {
   try {
     const db = getDb();
 
-    // 1. Metadata: Dynamic row counts for all 14 tables
-    const tableNames = [
+    // 1. Dynamic Metadata Discovery (Core & External)
+    const allTables = db.prepare("SELECT name FROM sqlite_master WHERE type='table'").all();
+    const coreTableNames = [
       'Suppliers', 'Manufacturers', 'Distributors', 'Warehouses', 'Categories', 
       'Products', 'ProductSuppliers', 'InventoryLevels', 'Orders', 'Logistics', 
       'InventoryTransactions', 'Users', 'QualityChecks', 'MaintenanceLogs'
     ];
     
     const tables = {};
+    const externalDatasets = [];
     let totalRecords = 0;
     
-    tableNames.forEach(name => {
+    allTables.forEach(({ name }) => {
       try {
-        const count = db.prepare(`SELECT COUNT(*) as count FROM ${name}`).get().count;
-        tables[name] = count;
+        const count = db.prepare(`SELECT COUNT(*) as count FROM "${name}"`).get().count;
         totalRecords += count;
+
+        if (coreTableNames.includes(name)) {
+          tables[name] = count;
+        } else if (name.startsWith('External_')) {
+          const columns = db.prepare(`PRAGMA table_info("${name}")`).all().map(c => c.name);
+          externalDatasets.push({
+            name,
+            displayName: name.replace('External_', '').replace(/_/g, ' '),
+            count,
+            columns
+          });
+        }
       } catch (e) {
-        tables[name] = 0;
+        console.warn(`Skipped table ${name}:`, e.message);
       }
     });
 
     const metadata = {
       totalRecords,
       tables,
+      externalDatasets,
       lastUpdated: new Date().toISOString()
     };
 

@@ -10,23 +10,46 @@ export async function POST(req) {
       return NextResponse.json({ success: false, error: 'Empty dataset' }, { status: 400 });
     }
 
-    // Dynamic handling: Map columns to an existing table or create a new one
-    const headers = Object.keys(data[0]);
+    // 1. Sanitize Headers & Infer Types
+    const rawHeaders = Object.keys(data[0]);
+    const headers = rawHeaders.map(h => h.replace(/[^a-zA-Z0-9]/g, '_'));
+    
+    // Simple Type Inference (Check first 5 rows)
+    const columnTypes = headers.map((h, idx) => {
+      const sampleValues = data.slice(0, 5).map(row => row[rawHeaders[idx]]);
+      
+      let isInt = true;
+      let isFloat = true;
+      
+      sampleValues.forEach(val => {
+        if (!val || val.toString().trim() === '') return;
+        const num = Number(val);
+        if (isNaN(num)) {
+          isInt = false;
+          isFloat = false;
+        } else if (!Number.isInteger(num)) {
+          isInt = false;
+        }
+      });
+      
+      if (isInt) return 'INTEGER';
+      if (isFloat) return 'REAL';
+      return 'TEXT';
+    });
+
     const tablename = `External_${filename.replace(/[^a-zA-Z0-9]/g, '_')}`;
 
-    // 1. Transaction to ensure atomicity
+    // 2. Transaction for schema setup and data insertion
     const transaction = db.transaction((rows) => {
-      // Create table dynamically if it doesn't exist
-      const columnsDef = headers.map(h => `"${h}" TEXT`).join(', ');
+      const columnsDef = headers.map((h, i) => `"${h}" ${columnTypes[i]}`).join(', ');
       db.prepare(`DROP TABLE IF EXISTS "${tablename}"`).run();
       db.prepare(`CREATE TABLE "${tablename}" (${columnsDef})`).run();
 
-      // Batch insert logic
       const placeholders = headers.map(() => '?').join(', ');
       const stmt = db.prepare(`INSERT INTO "${tablename}" (${headers.map(h => `"${h}"`).join(', ')}) VALUES (${placeholders})`);
       
       for (const row of rows) {
-        const values = headers.map(h => row[h]);
+        const values = rawHeaders.map(h => row[h]);
         stmt.run(...values);
       }
       return rows.length;

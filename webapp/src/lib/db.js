@@ -1,8 +1,14 @@
 import Database from 'better-sqlite3';
 import path from 'path';
 
-// Construct the path to the database file in the project workspace
-const dbPath = path.resolve(process.cwd(), 'supply_chain.db');
+// Check for Vercel or Netlify environment to handle read-only filesystems
+const isServerless = process.env.VERCEL === '1' || process.env.NETLIFY === 'true';
+
+// Construct the path to the database file
+// On Vercel, we MUST use the /tmp directory as the rest of the filesystem is read-only.
+const dbPath = isServerless 
+  ? path.resolve('/tmp', 'supply_chain.db')
+  : path.resolve(process.cwd(), 'supply_chain.db');
 
 function initializeDatabase(db) {
   const tableExists = db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='Users'").get();

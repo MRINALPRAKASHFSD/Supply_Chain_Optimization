@@ -1,73 +1,68 @@
-# 📦 Supply Chain Intelligence DBMS [Hyper-Enterprise]
+# 🪐 AetherFlow Supply Intelligence [Hyper-Enterprise]
 
-[![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)](https://nextjs.org/)
-[![SQLite](https://img.shields.io/badge/Database-SQLite-blue?style=flat-square&logo=sqlite)](https://www.sqlite.org/)
-[![Recharts](https://img.shields.io/badge/Analytics-Recharts-22c55e?style=flat-square&logo=chart.js)](https://recharts.org/)
+[![AetherFlow](https://img.shields.io/badge/AetherFlow-Supply_Intelligence-bef264?style=for-the-badge&logo=nexus)](https://github.com/MRINALPRAKASHFSD/Supply_Chain_Optimization)
+[![Auth](https://img.shields.io/badge/Security-RBAC_Governance-0ea5e9?style=for-the-badge&logo=sharp)](https://github.com/MRINALPRAKASHFSD/Supply_Chain_Optimization)
 
-A high-fidelity, data-centric Supply Chain Management system built to simulate industrial complexity at scale. This project features a robust **14-table relational schema**, automated **SQL triggers**, and predictive analytics powered by advanced SQL CTEs.
-
-![Dashboard Preview](file:///Users/mrinalprakash/.gemini/antigravity/brain/db7a0142-ee84-471e-8aa9-6a4ba63467b3/main_page_preview_1775448429031.png)
+### **Hyper-Intelligence Supply Chain DBMS & Big Data Analytics**
+*17-Table Relational Schema | Universal Data Ingestion | Neural Stress Simulation | Enterprise RBAC*
 
 ---
 
-## 🚀 Key Features
+## 🚀 Unified Intelligence Overview
 
-- **14-Table Relational Schema**: Fully normalized (3NF) architecture managing 2,700+ live records.
-- **SQL Automation (Triggers)**: Server-side logic for automated logistics generation and inventory auditing.
-- **Predictive Analytics**: "Days-to-Zero" stock depletion modeling using SQL Common Table Expressions (CTEs).
-- **Interactive SQL Console**: A live terminal to execute direct Relational Algebra queries and view real-time data.
-- **Neural Link Authentication**: Secure, tiered access for 'Admin' and 'Viewer' roles.
-- **Micro-Animated UI**: Premium dark-mode dashboard with glassmorphism styling and real-time Recharts visualizations.
+**AetherFlow** is a premium, data-centric Supply Chain Management system engineered for industrial complexity. Moving beyond standard record-keeping, it features a **Universal Analytics Engine** and a **Neural Simulation Layer** that allows executives to stress-test global fulfillment networks in real-time.
 
----
+### 🛡️ Enterprise Governance & RBAC
+- **Admin Clearance**: Full access to the Neural SQL Console and Universal Data Ingestion Hub.
+- **Analyst Access**: Restricted analytics view for standard employees, ensuring data integrity and tamper-evident history.
 
-## 🛠️ Tech Stack
-
-- **Frontend**: Next.js 15+, React 19, Lucide React (Icons), Recharts (Data Viz).
-- **Backend**: Next.js API Routes (Serverless-ready).
-- **Database**: SQLite3 (via `better-sqlite3`) for sub-millisecond local latency.
-- **Styling**: Vanilla CSS with a customized design system.
+### 📊 Intelligence Pillars
+- **Universal Ingestion**: Support for binary **Excel (.xlsx)** and regex-parsed **CSV** payloads with dynamic schema inference.
+- **Neural Simulation**: A "What-If" Stress Test engine that simulates demand shocks (300%+ spikes) to calculate brittle supply nodes.
+- **Intelligence Hub**: Real-time widgets for **OTIF Performance**, **Carrier Efficiency**, **Reorder Advisory (EOQ)**, and **Supplier Risk Scorecards**.
 
 ---
 
-## 📊 Database Architecture
+## 🛠️ Technology Stack
 
-The system operates on an interconnected grid of 14 tables:
+- **Core Engine**: Next.js 16 (Turbopack), React 19, Lucide React.
+- **Data Layer**: SQLite3 (better-sqlite3) with **17 Normalized Tables** and **4 Active Triggers**.
+- **Visualization**: Recharts High-Fidelity Intelligence Grid.
+- **Design System**: "Obsidian & Lime" High-Contrast Glassmorphism.
 
-| Layer | Tables |
+---
+
+## 📐 Database Architecture (17 Tables)
+
+The system manages a complex relational grid of **3,200+ live records**:
+
+| Layer | Functional Tables |
 | :--- | :--- |
-| **Core Entities** | `Categories`, `Suppliers`, `Manufacturers`, `Distributors`, `Warehouses` |
-| **Product Stack** | `Products`, `ProductSuppliers` (M:N) |
-| **Transactional** | `Orders`, `Logistics`, `InventoryTransactions` |
-| **Operational** | `InventoryLevels`, `QualityChecks`, `MaintenanceLogs` |
-| **Security** | `Users` |
+| **Foundation** | `Categories`, `Suppliers`, `Manufacturers`, `Distributors`, `Warehouses` |
+| **Product Stack** | `Products`, `ProductSuppliers` (M:N Mapping) |
+| **Physical Flow** | `Orders`, `Logistics` (Auto-Triggered), `InventoryTransactions` |
+| **Intelligence** | `InventoryLevels`, `QualityChecks`, `MaintenanceLogs` |
+| **Governance** | `Users` (RBAC), `AuditLogs`, `SupplierPerformanceLogs`, `InventorySnapshots` |
 
 ---
 
-## 🚦 Getting Started
+## 🚦 Deployment & Initialization
 
-### 1. Prerequisites
-- Node.js 18+ 
-- npm / yarn / pnpm
-
-### 2. Installation
+### 1. Synchronize Environment
 ```bash
-git clone https://github.com/MRINALPRAKASHFSD/Supply_Chain_Optimization.git
-cd Supply_Chain_Optimization/webapp
+cd webapp
 npm install
 ```
 
-### 3. Database Initialization (Seeding)
-To generate the 2,700+ record industrial dataset, run:
-```bash
-node src/scripts/seed.js
-```
-
-### 4. Run Development Server
+### 2. Launch Intelligence Nexus
 ```bash
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) to view the intelligence grid.
+*Access the platform at **[http://localhost:3000](http://localhost:3000)**.*
+
+### 3. Gain Entry
+- **System Admin**: `admin` / `admin123`
+- **Standard User**: `user` / `user123`
 
 ---
 
@@ -77,8 +72,7 @@ The full project report, including schema diagrams, SQL CTE breakdowns, and perf
 ---
 
 ## 👤 Author & Credits
-- **Primary Developer**: **MRINAL PRAKASH**
-- **GitHub**: [@MRINALPRAKASHFSD](https://github.com/MRINALPRAKASHFSD)
-- **University**: K.R. MANGALAM UNIVERSITY
+- **Lead Developer**: **MRINAL PRAKASH**
+- **Repository**: [Supply_Chain_Optimization](https://github.com/MRINALPRAKASHFSD/Supply_Chain_Optimization.git)
+- **Academic Institution**: K.R. MANGALAM UNIVERSITY
 - **Project**: DBMS Capstone [ENCS254]
-

@@ -701,6 +701,9 @@ export default function Home() {
                     </td>
                   </tr>
                 ))}
+              </tbody>
+            </table>
+          </div>
         </section>
 
         {/* 5. LIVE SQL CONSOLE - INTERACTIVE RUNTIME (ADMIN ONLY) */}

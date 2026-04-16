@@ -1,5 +1,9 @@
 # 🪐 AetherFlow Supply Intelligence [Hyper-Enterprise]
 
+<p align="center">
+  <img src="webapp/public/aetherflow_logo.png" width="180" alt="AetherFlow Logo" />
+</p>
+
 [![AetherFlow](https://img.shields.io/badge/AetherFlow-Supply_Intelligence-bef264?style=for-the-badge&logo=nexus)](https://github.com/MRINALPRAKASHFSD/Supply_Chain_Optimization)
 [![Auth](https://img.shields.io/badge/Security-RBAC_Governance-0ea5e9?style=for-the-badge&logo=sharp)](https://github.com/MRINALPRAKASHFSD/Supply_Chain_Optimization)
 [![Status](https://img.shields.io/badge/Neural_Grid-Active-green?style=for-the-badge)](https://aetherflowintelligence.vercel.app)

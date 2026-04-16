@@ -98,7 +98,7 @@
 .span4 { grid-column: span 4; }
 
 @media (max-width: 1024px) {
-  .span8, .span6, .span4 { grid-column: span 12; }
+  .span12, .span8, .span6, .span4 { grid-column: span 12; }
 }
 
 /* SQL Reference Component */
@@ -181,7 +181,22 @@
 
 .chartContainer {
   height: 320px;
+  min-height: 320px;
   width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chartPlaceholder {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  opacity: 0.5;
 }
 
 .widgetTitle {
@@ -592,13 +607,6 @@
   text-align: center;
 }
 
-.span4 {
-  grid-column: span 4;
-}
-
-.span8 {
-  grid-column: span 8;
-}
 
 /* External Data Explorer Styles */
 .explorerHeader {
@@ -731,4 +739,52 @@
   font-size: 0.75rem;
   color: var(--text-secondary);
   line-height: 1.4;
+}
+
+/* Dashboard Source Switcher */
+.switcherContainer {
+  display: flex;
+  background: rgba(148, 163, 184, 0.05);
+  border: 1px solid var(--border-glass);
+  padding: 4px;
+  border-radius: 12px;
+  gap: 4px;
+}
+
+.switchBtn {
+  padding: 6px 16px;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.switchBtn:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.activeSwitch {
+  background: var(--bg-secondary) !important;
+  color: var(--accent-color) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.2) !important;
+}
+
+.externalContextBadge {
+  background: rgba(99, 102, 241, 0.1);
+  color: #818cf8;
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
 }

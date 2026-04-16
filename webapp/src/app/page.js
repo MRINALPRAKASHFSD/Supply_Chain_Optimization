@@ -775,11 +775,31 @@ export default function Home() {
       </div>
 
       <footer className={styles.footer}>
-        <div style={{ display: 'flex', gap: 20 }}>
-          <SQLReference title="Enterprise ERD Setup" sql="-- 17 Tables Implemented: Categories, Suppliers, Manufacturers, Distributors, Warehouses, Products, ProductSuppliers, InventoryLevels, Orders, Logistics, InventoryTransactions, Users, QualityChecks, MaintenanceLogs, AuditLogs, SupplierPerformanceLogs, InventorySnapshots" />
-          <SQLReference title="Automation Triggers" sql="CREATE TRIGGER trg_CreateLogistics...; CREATE TRIGGER trg_AuditInventoryUpdate...; CREATE TRIGGER trg_SnapshotInventory...; CREATE TRIGGER trg_TrackSupplierDelivery..." />
+        <div className={styles.footerContent}>
+          <div className={styles.footerBrand}>
+            <div className={styles.logoBadge} style={{ width: 24, height: 24 }}><LayoutDashboard size={14} /></div>
+            <span>Aether<span style={{ color: '#bef264' }}>Flow</span> <small style={{ opacity: 0.5, marginLeft: 8 }}>v4.2-Industrial</small></span>
+          </div>
+          
+          <div className={styles.footerStats}>
+            <div className={styles.footerStatItem}>
+              <div className={styles.statusDot}></div>
+              Neural Grid: Active
+            </div>
+            <div className={styles.footerStatItem}>
+              <ShieldCheck size={12} style={{ color: '#bef264' }} />
+              Governance: Level 5
+            </div>
+            <div className={styles.footerStatItem}>
+              <Server size={12} />
+              Latency: 14ms
+            </div>
+          </div>
+
+          <div className={styles.footerCopyright}>
+            &copy; {new Date().getFullYear()} AetherFlow Supply Intelligence. Industrial Data Protocols Active.
+          </div>
         </div>
-        <p>&copy; 2026 DBMS Capstone: Supply Chain Hyper-Intelligence Engine | 17 Tables | 4 Triggers | 2700+ Records</p>
       </footer>
     </main>
   );

@@ -153,6 +153,21 @@ export default function Home() {
           <div className={styles.timeBadge}>
             Source: {dashboardContext === 'core' ? 'Primary Nexus' : 'Isolated Intelligence Node'}
           </div>
+          <button 
+            onClick={() => {
+              const exportData = JSON.stringify(data, null, 2);
+              const blob = new Blob([exportData], { type: 'application/json' });
+              const url = URL.createObjectURL(blob);
+              const a = document.createElement('a');
+              a.href = url;
+              a.download = `AetherFlow_Intelligence_${new Date().toISOString().split('T')[0]}.json`;
+              a.click();
+            }}
+            className={styles.exportBtn}
+            title="Export Intelligence Report"
+          >
+            <Share2 size={14} /> Export Report
+          </button>
         </div>
       </header>
 
@@ -686,22 +701,39 @@ export default function Home() {
                     </td>
                   </tr>
                 ))}
-              </tbody>
-            </table>
-          </div>
         </section>
 
-        {/* 5. LIVE SQL CONSOLE - INTERACTIVE RUNTIME */}
-        <SqlConsole className={styles.span8} />
-
-        {/* 6. UPLOAD CENTER - DYNAMIC DATAGESTION */}
-        <UploadCenter 
-          className={styles.span4} 
-          onUploadSuccess={() => {
-            fetchAnalytics();
-            setDashboardContext('external');
-          }} 
-        />
+        {/* 5. LIVE SQL CONSOLE - INTERACTIVE RUNTIME (ADMIN ONLY) */}
+        {user.role === 'Admin' ? (
+          <SqlConsole className={styles.span8} />
+        ) : (
+          <section className={`glass-panel ${styles.span8} animate-in`}>
+            <div className={styles.restrictedView}>
+              <Lock size={32} style={{ color: '#ef4444', marginBottom: 15 }} />
+              <h3>Terminal Access Restricted</h3>
+              <p>Direct SQL protocol requires Level 5 Administrative Clearance.</p>
+            </div>
+          </section>
+        )}
+ 
+        {/* 6. UPLOAD CENTER - DYNAMIC DATAGESTION (ADMIN ONLY) */}
+        {user.role === 'Admin' ? (
+          <UploadCenter 
+            className={styles.span4} 
+            onUploadSuccess={() => {
+              fetchAnalytics();
+              setDashboardContext('external');
+            }} 
+          />
+        ) : (
+          <section className={`glass-panel ${styles.span4} animate-in`}>
+            <div className={styles.restrictedView}>
+              <ShieldCheck size={32} style={{ color: '#0ea5e9', marginBottom: 15 }} />
+              <h3>Standard Account</h3>
+              <p>External data synchronization is restricted to supervisors.</p>
+            </div>
+          </section>
+        )}
 
         {/* 7. EXTERNAL DATA EXPLORER - DYNAMIC DATASETS */}
         <ExternalDataExplorer 

@@ -1,0 +1,14 @@
+{
+  "name": "aetherflow-supply-intelligence-root",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm run dev --prefix webapp",
+    "build": "npm run build --prefix webapp",
+    "start": "npm run start --prefix webapp",
+    "lint": "npm run lint --prefix webapp"
+  },
+  "dependencies": {
+    "next": "16.2.1"
+  }
+}

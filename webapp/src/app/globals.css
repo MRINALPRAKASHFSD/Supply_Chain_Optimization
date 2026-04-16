@@ -3,19 +3,22 @@
 :root {
   --bg-primary: #020617;
   --bg-secondary: #0f172a;
-  --bg-glass: rgba(15, 23, 42, 0.6);
-  --border-glass: rgba(148, 163, 184, 0.1);
+  --bg-glass: rgba(8, 12, 24, 0.7);
+  --border-glass: rgba(190, 242, 100, 0.1);
   
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
-  --text-accent: #10b981;
+  --text-accent: #bef264;
   
-  --accent-color: #10b981;
-  --accent-gradient: linear-gradient(135deg, #10b981 0%, #0ea5e9 100%);
+  --accent-color: #bef264;
+  --accent-gradient: linear-gradient(135deg, #bef264 0%, #06b6d4 100%);
   
-  --danger: #ef4444;
-  --success: #10b981;
-  --warning: #f59e0b;
+  --danger: #ff4d4d;
+  --success: #bef264;
+  --warning: #fbbf24;
+  --info: #06b6d4;
+  
+  --neon-glow: 0 0 15px rgba(190, 242, 100, 0.3);
 }
 
 * {

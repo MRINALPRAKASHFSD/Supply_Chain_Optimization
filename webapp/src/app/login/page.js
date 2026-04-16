@@ -48,8 +48,8 @@ export default function LoginPage() {
           <div className={`${styles.logoBadge} ${styles.authLogo}`}>
             <ShieldCheck size={32} />
           </div>
-          <h1 className={styles.authTitle}>Neural Link Login</h1>
-          <p className={styles.authSubtitle}>Access the Supply Chain Intelligence Grid</p>
+          <h1 className={styles.authTitle}>Aether<span style={{ color: '#bef264' }}>Flow</span> Login</h1>
+          <p className={styles.authSubtitle}>Access the AetherFlow Intelligence Nexus</p>
         </div>
 
         <form className={styles.authForm} onSubmit={handleLogin}>
@@ -88,13 +88,13 @@ export default function LoginPage() {
           </div>
 
           <button type="submit" className={styles.authButton} disabled={loading}>
-            {loading ? 'Decrypting Access...' : 'Authenticate'} <ArrowRight size={18} style={{ marginLeft: '8px' }} />
+            {loading ? 'Initializing Nexus...' : 'Gain Access'} <ArrowRight size={18} style={{ marginLeft: '8px' }} />
           </button>
         </form>
 
         <div className={styles.authFooter}>
-          Don't have a neural link? 
-          <Link href="/signup" className={styles.authLink}>Initialize Account</Link>
+          New to the Nexus? 
+          <Link href="/signup" className={styles.authLink}>Sync Identity</Link>
         </div>
       </div>
     </div>

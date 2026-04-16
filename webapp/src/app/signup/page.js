@@ -53,8 +53,8 @@ export default function SignupPage() {
           <div className={`${styles.logoBadge} ${styles.authLogo}`}>
             <ShieldCheck size={32} />
           </div>
-          <h1 className={styles.authTitle}>Initialize Neural Link</h1>
-          <p className={styles.authSubtitle}>Register your identity on the Supply Chain Grid</p>
+          <h1 className={styles.authTitle}>Initialize Identity</h1>
+          <p className={styles.authSubtitle}>Register on the AetherFlow Intelligence Nexus</p>
         </div>
 
         <form className={styles.authForm} onSubmit={handleSignup}>
@@ -109,7 +109,7 @@ export default function SignupPage() {
           </div>
 
           <button type="submit" className={styles.authButton} disabled={loading}>
-            {loading ? 'Initializing Interface...' : 'Create Account'} <PlusCircle size={18} style={{ marginLeft: '8px' }} />
+            {loading ? 'Propagating Identity...' : 'Sync Identity'} <PlusCircle size={18} style={{ marginLeft: '8px' }} />
           </button>
         </form>
 

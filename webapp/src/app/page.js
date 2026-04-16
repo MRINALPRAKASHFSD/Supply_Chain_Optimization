@@ -105,7 +105,24 @@ export default function Home() {
     );
   }
 
-  if (!data) return <div className={styles.error}>System Offline: Initialize Database Seeding.</div>;
+  if (!data) {
+    return (
+      <div className={styles.loading}>
+        <div className={styles.restrictedView} style={{ background: 'transparent' }}>
+          <Activity size={48} style={{ color: '#ef4444', marginBottom: 20 }} className="pulse" />
+          <h2 style={{ color: '#fff', marginBottom: 10 }}>Neural Grid Offline</h2>
+          <p style={{ color: '#94a3b8', marginBottom: 24 }}>The system is currently syncing the master intelligence database.</p>
+          <button 
+            onClick={() => fetchAnalytics()}
+            className={styles.exportBtn}
+            style={{ padding: '12px 24px', fontSize: '0.9rem' }}
+          >
+            <Share2 size={16} /> Re-Sync Neural Grid
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <main className={styles.main}>

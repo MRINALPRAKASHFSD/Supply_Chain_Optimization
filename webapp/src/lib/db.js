@@ -1,14 +1,22 @@
 import Database from 'better-sqlite3';
 import path from 'path';
+import fs from 'fs';
 
 // Check for Vercel or Netlify environment to handle read-only filesystems
 const isServerless = process.env.VERCEL === '1' || process.env.NETLIFY === 'true';
 
 // Construct the path to the database file
 // On Vercel, we MUST use the /tmp directory as the rest of the filesystem is read-only.
-const dbPath = isServerless 
-  ? path.resolve('/tmp', 'supply_chain.db')
-  : path.resolve(process.cwd(), 'supply_chain.db');
+// To ensure the system stays online, we copy our "Master Template" from the repo to /tmp.
+const masterDbPath = path.resolve(process.cwd(), 'supply_chain.db');
+const activeDbPath = isServerless ? path.resolve('/tmp', 'supply_chain.db') : masterDbPath;
+
+if (isServerless && !fs.existsSync(activeDbPath)) {
+  if (fs.existsSync(masterDbPath)) {
+    console.log("🚚 Syncing Master Intelligence Database to Neural Grid...");
+    fs.copyFileSync(masterDbPath, activeDbPath);
+  }
+}
 
 function initializeDatabase(db) {
   const tableExists = db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name='Users'").get();
@@ -54,7 +62,7 @@ function initializeDatabase(db) {
 }
 
 export function getDb() {
-  const db = new Database(dbPath, { verbose: console.log });
+  const db = new Database(activeDbPath, { verbose: console.log });
   initializeDatabase(db);
   return db;
 }

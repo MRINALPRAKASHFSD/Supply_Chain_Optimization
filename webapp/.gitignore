@@ -41,4 +41,4 @@ yarn-error.log*
 next-env.d.ts
 
 # database
-supply_chain.db
+# supply_chain.db (Un-ignored for Vercel Instant Deployment)

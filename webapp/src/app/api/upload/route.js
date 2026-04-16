@@ -1,28 +1,40 @@
 import { NextResponse } from 'next/server';
 import { getDb } from '../../../lib/db.js';
+import * as XLSX from 'xlsx';
 
 export async function POST(req) {
   try {
-    const { filename, data } = await req.json();
+    const body = await req.json();
+    const { filename, data, fileContent, type } = body;
     const db = getDb();
 
-    if (!data || !Array.isArray(data) || data.length === 0) {
-      return NextResponse.json({ success: false, error: 'Empty dataset' }, { status: 400 });
+    let finalData = data;
+
+    // Support for Excel parsing if a base64 string is provided
+    if (fileContent && type === 'excel') {
+      const buffer = Buffer.from(fileContent, 'base64');
+      const workbook = XLSX.read(buffer, { type: 'buffer' });
+      const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+      finalData = XLSX.utils.sheet_to_json(firstSheet);
+    }
+
+    if (!finalData || !Array.isArray(finalData) || finalData.length === 0) {
+      return NextResponse.json({ success: false, error: 'Empty or invalid dataset' }, { status: 400 });
     }
 
     // 1. Sanitize Headers & Infer Types
-    const rawHeaders = Object.keys(data[0]);
+    const rawHeaders = Object.keys(finalData[0]);
     const headers = rawHeaders.map(h => h.replace(/[^a-zA-Z0-9]/g, '_'));
     
-    // Simple Type Inference (Check first 5 rows)
+    // Simple Type Inference (Check first 10 rows for better accuracy)
     const columnTypes = headers.map((h, idx) => {
-      const sampleValues = data.slice(0, 5).map(row => row[rawHeaders[idx]]);
+      const sampleValues = finalData.slice(0, 10).map(row => row[rawHeaders[idx]]);
       
       let isInt = true;
       let isFloat = true;
       
       sampleValues.forEach(val => {
-        if (!val || val.toString().trim() === '') return;
+        if (val === undefined || val === null || val === '') return;
         const num = Number(val);
         if (isNaN(num)) {
           isInt = false;
@@ -37,7 +49,7 @@ export async function POST(req) {
       return 'TEXT';
     });
 
-    const tablename = `External_${filename.replace(/[^a-zA-Z0-9]/g, '_')}`;
+    const tablename = `External_${filename.replace(/[^a-zA-Z0-9]/g, '_').split('.')[0]}`;
 
     // 2. Transaction for schema setup and data insertion
     const transaction = db.transaction((rows) => {
@@ -55,13 +67,13 @@ export async function POST(req) {
       return rows.length;
     });
 
-    const count = transaction(data);
+    const count = transaction(finalData);
 
     return NextResponse.json({ 
       success: true, 
       tablename,
       count,
-      message: `Successfully ingested ${count} records into ${tablename}.`
+      message: `Successfully ingested ${count} records into ${tablename} [AetherFlow Node].`
     });
 
   } catch (error) {

@@ -74,5 +74,4 @@ The full project report, including schema diagrams, SQL CTE breakdowns, and perf
 ## 👤 Author & Credits
 - **Lead Developer**: **MRINAL PRAKASH**
 - **Repository**: [Supply_Chain_Optimization](https://github.com/MRINALPRAKASHFSD/Supply_Chain_Optimization.git)
-- **Academic Institution**: K.R. MANGALAM UNIVERSITY
-- **Project**: DBMS Capstone [ENCS254]
+  

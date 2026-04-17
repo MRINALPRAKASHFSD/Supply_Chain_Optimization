@@ -643,13 +643,16 @@ export default function Home() {
           </h2>
           {isMounted && data.carbonByMode ? (
             <div style={{ display: 'grid', gridTemplateColumns: '1fr', gap: 20 }}>
-              <ResponsiveContainer width="100%" height={200}>
-                <BarChart data={data.carbonByMode}>
+              <ResponsiveContainer width="100%" height={220}>
+                <BarChart data={data.carbonByMode} margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
                   <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" vertical={false} />
                   <XAxis dataKey="name" stroke="#94a3b8" />
-                  <YAxis stroke="#94a3b8" />
+                  <YAxis 
+                    stroke="#94a3b8" 
+                    tickFormatter={(v) => v >= 1000000 ? `${(v / 1000000).toFixed(1)}M` : v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v} 
+                  />
                   <RechartsTooltip contentStyle={{ backgroundColor: '#0f172a', border: '1px solid var(--border-glass)' }} formatter={(v) => `${Number(v).toLocaleString()} kg CO₂`} />
-                  <Bar dataKey="value" name="CO₂ (kg)" radius={[4, 4, 0, 0]}>
+                  <Bar dataKey="value" name="CO₂ (kg)" radius={[4, 4, 0, 0]} maxBarSize={60}>
                     {data.carbonByMode.map((entry, i) => (
                       <Cell key={`co2-${i}`} fill={entry.name === 'Air' ? '#ef4444' : entry.name === 'Road' ? '#f59e0b' : '#10b981'} />
                     ))}

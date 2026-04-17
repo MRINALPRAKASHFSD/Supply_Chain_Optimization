@@ -71,4 +71,4 @@ npm run dev
 ## 👤 Author & Credits
 - **Lead Developer**: **MRINAL PRAKASH**
 - **Repository**: [Supply_Chain_Optimization](https://github.com/MRINALPRAKASHFSD/Supply_Chain_Optimization.git)
-- **Academic Context**: K.R. MANGALAM UNIVERSITY | DBMS Capstone [ENCS254]
+

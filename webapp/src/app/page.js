@@ -588,13 +588,13 @@ export default function Home() {
             Warehouse Capacity Utilization
           </h2>
           {isMounted && data.warehouseUtil ? (
-            <ResponsiveContainer width="100%" height={220}>
-              <BarChart data={data.warehouseUtil} layout="vertical">
+            <ResponsiveContainer width="100%" height={320}>
+              <BarChart data={data.warehouseUtil} layout="vertical" margin={{ top: 10, right: 20, left: 60, bottom: 10 }}>
                 <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.05)" horizontal={false} />
                 <XAxis type="number" domain={[0, 100]} stroke="#94a3b8" fontSize={10} />
-                <YAxis dataKey="name" type="category" stroke="#94a3b8" fontSize={9} width={100} />
+                <YAxis dataKey="name" type="category" stroke="#94a3b8" fontSize={10} width={150} tick={{ fill: '#94a3b8' }} />
                 <RechartsTooltip contentStyle={{ backgroundColor: '#0f172a', border: '1px solid var(--border-glass)' }} formatter={(v) => `${v}%`} />
-                <Bar dataKey="pct" name="Utilization %" radius={[0, 4, 4, 0]}>
+                <Bar dataKey="pct" name="Utilization %" radius={[0, 4, 4, 0]} barSize={12}>
                   {data.warehouseUtil.map((entry, i) => (
                     <Cell key={`wh-${i}`} fill={entry.pct >= 90 ? '#ef4444' : entry.pct >= 70 ? '#f59e0b' : '#10b981'} />
                   ))}

@@ -1081,8 +1081,8 @@ const ExternalDataExplorer = ({ className, datasets, activeTable, onTableChange 
       ) : (
         <div className={styles.explorerSplit}>
           <div className={styles.explorerTableArea}>
-            <div className={styles.dataTableWrapper} style={{ maxHeight: '400px' }}>
-              <table className={styles.dataTable}>
+            <div className={styles.dataTableWrapper} style={{ maxHeight: '400px', maxWidth: '100%' }}>
+              <table className={styles.dataTable} style={{ whiteSpace: 'nowrap' }}>
                 <thead>
                   <tr>
                     {data?.columns.map(col => <th key={col}>{col}</th>)}

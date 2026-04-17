@@ -130,9 +130,6 @@ export default function Home() {
       <header className={styles.header}>
         <div className="animate-in">
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
-            <div className={styles.logoBadge}>
-              <img src="/aetherflow_logo.png" alt="AetherFlow" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-            </div>
             <h1 className={styles.title}>AetherFlow <span style={{ color: '#bef264' }}>Supply Intelligence</span></h1>
           </div>
           <div className={styles.switcherContainer}>
@@ -779,9 +776,6 @@ export default function Home() {
       <footer className={styles.footer}>
         <div className={styles.footerContent}>
           <div className={styles.footerBrand}>
-            <div className={styles.logoBadge} style={{ width: 24, height: 24, padding: 4 }}>
-              <img src="/aetherflow_logo.png" alt="AetherFlow" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-            </div>
             <span>Aether<span style={{ color: '#bef264' }}>Flow</span> <small style={{ opacity: 0.5, marginLeft: 8 }}>v4.2-Industrial</small></span>
           </div>
           

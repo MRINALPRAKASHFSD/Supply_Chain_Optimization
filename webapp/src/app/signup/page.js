@@ -50,10 +50,7 @@ export default function SignupPage() {
     <div className={styles.authContainer}>
       <div className={styles.authCard}>
         <div className={styles.authHeader}>
-          <div className={`${styles.logoBadge} ${styles.authLogo}`}>
-            <img src="/aetherflow_logo.png" alt="AetherFlow" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-          </div>
-          <h1 className={styles.authTitle}>Initialize Identity</h1>
+          <h1 className={styles.authTitle}>Initialize <span style={{ color: '#bef264' }}>Identity</span></h1>
           <p className={styles.authSubtitle}>Register on the AetherFlow Intelligence Nexus</p>
         </div>
 

@@ -51,13 +51,19 @@ The system operates on an interconnected grid of **3,200+ live records**:
 
 ## 🚦 Deployment & Initialization
 
-### 1. Synchronize App Environment
+### 🌐 Live Production Deployment
+**Access the fully deployed Neural Grid Nexus here:**  
+🟢 **[https://aetherflowintelligence.vercel.app](https://aetherflowintelligence.vercel.app)**
+
+---
+
+### 1. Synchronize App Environment (Local Development)
 ```bash
 cd webapp
 npm install
 ```
 
-### 2. Launch Intelligence Nexus
+### 2. Launch Intelligence Nexus (Local)
 ```bash
 npm run dev
 ```
